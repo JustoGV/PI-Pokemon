@@ -1,3 +1,5 @@
+const axios =require('axios')
+const {TypeApiInfo}= require('./src/routes/functions')
 //                       _oo0oo_
 //                      o8888888o
 //                      88" . "88
@@ -22,7 +24,11 @@ const { conn } = require('./src/db.js');
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  server.listen(3001, () => {
+  server.listen(3001,async () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
+
+    await TypeApiInfo()
+    console.log('Negro choto')
+
   });
 });
