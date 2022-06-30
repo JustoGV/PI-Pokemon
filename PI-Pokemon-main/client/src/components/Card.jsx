@@ -10,7 +10,10 @@ export default function Card({id,name,image,types}){
             <h3>{name}</h3>
             <img src={image} alt="imagen no encontrada" width="250px"/>
             </Link>
-            {types}
+            <div>
+                {types.map(t=>t + " ")}
+            </div>
+                
         </div>
     )
 }

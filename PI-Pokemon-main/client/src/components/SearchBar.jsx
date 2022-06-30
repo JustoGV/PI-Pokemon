@@ -10,6 +10,7 @@ export default function SearchBar(){
     function handleSubmit(e){
         e.preventDefault()
         dispatch(getNamePokemon(name))
+        setName("")
     }
     function handleInput(e){
         e.preventDefault()
