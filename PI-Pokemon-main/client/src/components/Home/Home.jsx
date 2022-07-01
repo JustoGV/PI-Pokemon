@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { useState,useEffect } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { filterByCreated, getPokemons, orderByAttack, orderByName, orderByType } from '../actions';
+import { filterByCreated, getPokemons, orderByAttack, orderByName, orderByType } from '../../actions';
 import {Link} from 'react-router-dom'
-import Card from './Card'
-import Paginado from './Paginado';
-import SearchBar from './SearchBar';
+import Card from '../Card/Card'
+import Paginado from '../Paginado/Paginado';
+import SearchBar from '../SearchBar/SearchBar';
 
 
 export default function Home(){
@@ -62,7 +62,7 @@ export default function Home(){
                 Volver a cargar todos los pokemones
             </button>
             <SearchBar/>
-            <div>
+            <div className='contenedor'>
                 <select onChange={e=>handleOrder(e)}>
                     <option value='asc'>Ascendente</option>
                     <option value='des'>Descendente</option>
@@ -94,13 +94,16 @@ export default function Home(){
                 {
                     currentPokemon?.map((c,i)=>{ 
                         return(
-                            <Card  
-                            key={i} 
-                            id={c.id}
-                            name={c.name} 
-                            types={c.types}
-                            image={c.img?c.img:c.image} 
-                            /> 
+                            <div className='contenedor-carta'>
+                                <Card  
+                                key={i} 
+                                id={c.id}
+                                name={c.name} 
+                                types={c.types}
+                                image={c.img?c.img:c.image} 
+                                /> 
+
+                            </div>
                             )
                         })
                         }

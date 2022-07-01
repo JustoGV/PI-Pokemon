@@ -5,21 +5,40 @@ const {Pokemon,Type}=require('../db')
 const e = require('express')
 
 
+
+// const getAllPokemons=async function (){
+//     const api=await axios.get('https://pokeapi.co/api/v2/pokemon?limit=20')
+//     const db=await Pokemon.findAll({
+//         include:{
+//             model: Type,
+//             attributes:["name"],
+//             through:{
+//                 attributes:[]
+//             }
+//         }
+//     })
+//     let newDB=db.map(e=>{
+//         return {
+//             id:e.id,
+//             name:e.name,
+//             vida:e.vida,
+//             ataque:e.ataque,
+//             defensa:e.defensa,
+//             velocidad:e.velocidad,
+//             altura:e.altura,
+//             peso:e.peso,
+//             types:e.types.map(e=>e.name)
+//         }
+//     })
+//     pokelist=[...pokelist,...newDB]
+// }
 const getApiInfo=async()=>{
     const pokemonsPromises=[]
     const primeros20= await axios.get('https://pokeapi.co/api/v2/pokemon')
     const segundos20= await axios.get(primeros20.data.next)
     const totalPokemones=primeros20.data.results.concat(segundos20.data.results)
-
-
-    try {
-        
-        // .then(res=>{
-            const infoUrl=totalPokemones.map(e=>axios.get(e.url))
-            // for(let i of res.data.results){
-                //     pokemonsPromises.push(axios.get(i.url))
-                // }
-    //})
+    const infoUrl=totalPokemones.map(e=>axios.get(e.url))
+    
     let infoPokemons= await Promise.all(infoUrl)
     .then(values=>{
         let pokemon=values.map(e=>e.data) //info de cada pokemon
@@ -35,24 +54,39 @@ const getApiInfo=async()=>{
                 altura:el.height,
                 peso:el.weight,
                 image:el.sprites.other["official-artwork"].front_default,
+
                 types: el.types.map(e=>e.type.name)
             })
         })
         return info
     })
     return infoPokemons
-} catch (error) {
-    
-}
+
 }
 const getDbInfo=async()=>{
-    return await Pokemon.findAll({
+    let db= await Pokemon.findAll({
         include:{model: Type,
             attributes:["name"],
             through:{
-            attributes:[]
-        }}
+                attributes:[]
+            }
+        }
     })
+    let newDB = db.map(e => {
+        return {
+          id: e.id,
+          name: e.name,
+          vida: e.vida,
+          ataque: e.ataque,
+          defensa: e.defensa,
+          velocidad: e.velocidad,
+          altura: e.altura,
+          peso: e.peso,
+          createdInDb:e.createdInDb,
+          types: e.types.map(e => e.name),
+        }
+      })
+      return newDB
 }
 const getAllPokemons= async()=>{
     const apiInfo= await getApiInfo()
