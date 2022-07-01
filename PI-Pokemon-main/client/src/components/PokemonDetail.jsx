@@ -13,7 +13,7 @@ export default function PokemonDetail(){
 
     useEffect(()=>{
         dispatch(pokemonDetail(id))
-    },[])
+    },[dispatch])
 
     
     return(

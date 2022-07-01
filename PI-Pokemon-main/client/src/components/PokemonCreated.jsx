@@ -41,7 +41,6 @@ export default function PokemonCreated(){
             ...input,
             [e.target.name]:e.target.value
         }))
-        console.log(input)
     }
 
     function handleSelect(e){
@@ -74,7 +73,6 @@ export default function PokemonCreated(){
             img:"",
             types:[]
         })
-        console.log(input)
         history.push('/home')
     }
 

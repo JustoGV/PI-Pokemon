@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
 import { useState,useEffect } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { filterByCreated, getPokemons, orderByAttack, orderByName, orderByType, getTypes } from '../actions';
-import {Link, Redirect} from 'react-router-dom'
+import { filterByCreated, getPokemons, orderByAttack, orderByName, orderByType } from '../actions';
+import {Link} from 'react-router-dom'
 import Card from './Card'
 import Paginado from './Paginado';
 import SearchBar from './SearchBar';
@@ -55,7 +54,6 @@ export default function Home(){
         e.preventDefault()
         dispatch(orderByType(e.target.value))
     }
-    console.log(currentPokemon)
     return(
         <div id='Paginas'>
             <Link to ='/pokemons'>Crear Pokemon</Link>
